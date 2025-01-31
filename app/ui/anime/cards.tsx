@@ -6,13 +6,16 @@ import clsx from "clsx";
 import { StarIcon, HashtagIcon } from "@heroicons/react/24/outline";
 
 export async function Cards({ animes }: { animes: AnimeType[] }) {
-  return (
-    <div className="flex flex-wrap justify-center gap-2">
-      {animes.map((anime: AnimeType) => (
-        <Card anime={anime} key={anime.mal_id} />
-      ))}
-    </div>
-  );
+  // return (
+  //   <div className="flex flex-wrap justify-center gap-2">
+  //     {animes.map((anime: AnimeType) => (
+  //       <Card anime={anime} key={anime.mal_id} />
+  //     ))}
+  //   </div>
+  // );
+
+  console.log("anime: ", animes);
+  return <p>Cards!</p>;
 }
 
 export function Card({ anime }: { anime: AnimeType }) {

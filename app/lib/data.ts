@@ -34,3 +34,29 @@ export async function fetchAnimeCharacters(id: number) {
     throw new Error("Failed to fetch anime by id");
   }
 }
+
+export async function fetchPeopleById(id: number) {
+  try {
+    const { data } = await fetch(
+      `https://api.jikan.moe/v4/people/${id}/full`
+    ).then((res) => res.json());
+
+    return data;
+  } catch (error) {
+    console.error("Jikan API call Error: ", error);
+    throw new Error("Failed to fetch people by id");
+  }
+}
+
+export async function fetchSearchAnime(query: string) {
+  try {
+    const { data } = await fetch(
+      `https://api.jikan.moe/v4/anime?q=${query}`
+    ).then((res) => res.json());
+
+    return data;
+  } catch (error) {
+    console.error("Jikan API call Error: ", error);
+    throw new Error("Failed to fetch search query");
+  }
+}

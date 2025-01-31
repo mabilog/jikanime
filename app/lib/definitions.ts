@@ -142,21 +142,18 @@ export type Anime = {
   year: number;
 };
 
-export type Character = {
-  character: {
-    mal_id: number;
+export type AnimeSmall = {
+  position: string;
+  anime: {
+    mal_id: string;
     url: string;
-    images: {
-      jpg: {
-        image_url: string;
-      };
-      webp: {
-        image_url: string;
-        small_image_url: string;
-      };
-    };
-    name: string;
+    images: Images;
+    title: string;
   };
+};
+
+export type Character = {
+  character: CharacterSmall;
   favorites: number;
   role: string;
   voice_actors: {
@@ -174,7 +171,40 @@ export type Character = {
   }[];
 };
 
-export type Season = {
-  data: Anime[];
-  pagination: Pagination;
+export type CharacterSmall = {
+  mal_id: number;
+  url: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+    webp: {
+      image_url: string;
+      small_image_url: string;
+    };
+  };
+  name: string;
+};
+
+export type People = {
+  mal_id: number;
+  url: string;
+  website_url: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  name: string;
+  given_name: string;
+  family_name: string;
+  birthday: string;
+  favorites: number;
+  about: string;
+  anime: AnimeSmall[];
+  voices: {
+    role: string;
+    anime: AnimeSmall;
+    character: CharacterSmall;
+  };
 };
