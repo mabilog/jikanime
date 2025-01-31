@@ -1,42 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import { fetchSearchAnime } from "./lib/data";
-import { Cards } from "./ui/anime/cards";
+import { useRouter } from "next/navigation";
+// import Search from "./component/search";
 
 export default function Home() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const router = useRouter();
+  const categories = [
+    { value: "all", label: "All" },
+    { value: "animes", label: "Animes" },
+    { value: "characters", label: "Characters" },
+    { value: "voice_actors", label: "Voice Actors" },
+  ];
 
-  const handleSearch = async (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!query.trim()) return;
+    const formData = new FormData(e.currentTarget);
+    const query = formData.get("query") as string;
+    const category = formData.get("category") as string;
 
-    try {
-      const data = await fetchSearchAnime(query);
-      console.log(data);
-      setResults(data);
-    } catch (error) {
-      console.error("Search Error: ", error);
-    }
+    router.push(`/search?query=${query}&category=${category}`);
   };
   return (
-    <main>
-      <h1>Jikanime</h1>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for an anime"
-        />
-      </form>
-      {/* {results.length > 0 ? (
-        results.map((res) => <p key={res.title}>{res.title}</p>)
-      ) : (
-        <></>
-      )} */}
-      {results.length > 0 ? <Cards animes={results} /> : <></>}
+    <main className="">
+      <div
+        className="flex flex-col justify-center items-center h-full
+      "
+      >
+        <h1>Jikanime</h1>
+        {/* <Search searchParams={searchParams} /> */}
+        <form onSubmit={handleSubmit}>
+          <select name="category" defaultValue="all">
+            {categories.map((cat) => (
+              <option value={cat.value} key={cat.label}>
+                {cat.label}
+              </option>
+            ))}
+          </select>
+          <input type="text" name="query" placeholder="God kill me now" />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </main>
   );
 }

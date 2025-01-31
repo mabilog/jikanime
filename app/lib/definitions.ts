@@ -58,6 +58,7 @@ export type Licensor = {
 };
 
 export type Pagination = {
+  current_page: number;
   last_visible_page: number;
   has_next_page: boolean;
   items: {
@@ -207,4 +208,30 @@ export type People = {
     anime: AnimeSmall;
     character: CharacterSmall;
   };
+};
+
+export type Search = {
+  data: Anime[];
+  pagination: Pagination;
+};
+
+export type ActorswithPagination = {
+  data: People[];
+  pagination: Pagination;
+};
+
+export type AnimesWithPagination = {
+  data: Anime[];
+  pagination: Pagination;
+};
+
+export type CharactersWithPagination = {
+  data: Character[];
+  pagination: Pagination;
+};
+
+export type SearchAll = {
+  actors: ActorswithPagination | null;
+  animes: AnimesWithPagination | null;
+  characters: CharactersWithPagination | null;
 };

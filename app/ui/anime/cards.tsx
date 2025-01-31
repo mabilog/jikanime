@@ -6,16 +6,19 @@ import clsx from "clsx";
 import { StarIcon, HashtagIcon } from "@heroicons/react/24/outline";
 
 export async function Cards({ animes }: { animes: AnimeType[] }) {
-  // return (
-  //   <div className="flex flex-wrap justify-center gap-2">
-  //     {animes.map((anime: AnimeType) => (
-  //       <Card anime={anime} key={anime.mal_id} />
-  //     ))}
-  //   </div>
-  // );
+  if (!animes) {
+    return <p>bleh</p>;
+  }
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {animes.map((anime: AnimeType) => (
+        <Card anime={anime} key={anime.mal_id} />
+      ))}
+    </div>
+  );
 
-  console.log("anime: ", animes);
-  return <p>Cards!</p>;
+  // console.log("anime: ", animes);
+  // return <p>Cards!</p>;
 }
 
 export function Card({ anime }: { anime: AnimeType }) {
@@ -28,7 +31,7 @@ export function Card({ anime }: { anime: AnimeType }) {
         <Image
           width={225}
           height={318}
-          alt={anime.title_english}
+          alt={anime.title}
           src={anime.images.webp.image_url}
           className="rounded-xl object-contain w-40"
         />
@@ -72,17 +75,17 @@ export function Card({ anime }: { anime: AnimeType }) {
             <small>Ranking</small>
           </div>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
           {anime.genres.slice(0, 2).map((genre: Genre) => (
             <div
-              className="py-1 px-2 bg-gray-700 rounded text-xs"
+              className="py-1 px-2 bg-gray-700 rounded text-xs text-white"
               key={genre.mal_id}
             >
               {genre.name}
             </div>
           ))}
           {anime.genres.length > 2 && (
-            <div className="py-1 px-2 bg-gray-700 rounded text-xs">
+            <div className="py-1 px-2 bg-gray-700 rounded text-xs text-white flex-nowrap">
               + {anime.genres.length - 2}
             </div>
           )}

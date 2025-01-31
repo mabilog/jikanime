@@ -1,19 +1,9 @@
-import { fetchSearchAnime } from "../lib/data";
+import { SearchAll } from "../lib/definitions";
 
-export default async function SearchResults({
-  searchParams,
-}: {
-  searchParams?: Promise<{ query?: string }>;
-}) {
-  const searchParamsData = await searchParams;
-  const query = searchParams?.query || "";
+export default async function SearchResults(props: { results: SearchAll }) {
+  const { results } = props;
 
-  let data;
+  console.log("results: ", results);
 
-  if (query) {
-    data = await fetchSearchAnime(query);
-    console.log("data: ", data.data);
-  }
-
-  return <h1>somethign or another</h1>;
+  return <p>What up everyone</p>;
 }

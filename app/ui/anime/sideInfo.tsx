@@ -11,7 +11,7 @@ export default function SideInfo({ anime }: { anime: AnimeType }) {
         height={318}
         width={225}
         src={anime.images.webp.large_image_url}
-        alt={anime.title_english}
+        alt={anime.title}
       />
       <Alternative anime={anime} />
       <Information anime={anime} />
