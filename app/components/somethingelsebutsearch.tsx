@@ -1,4 +1,4 @@
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import SearchResults from "./searchResults";
 import { Suspense } from "react";
 
