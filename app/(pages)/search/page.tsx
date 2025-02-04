@@ -1,7 +1,8 @@
 import { Suspense } from "react";
-import SearchResults from "../components/SearchResults";
-import { fetchSearchAnime } from "../lib/data";
-import { AnimesWithPagination } from "../lib/definitions";
+
+import SearchResults from "@/app/components/SearchResults";
+import { fetchSearchAnime } from "@/app/lib/data";
+import { AnimesWithPagination } from "@/app/lib/definitions";
 
 export default async function SearchPage({
   searchParams,

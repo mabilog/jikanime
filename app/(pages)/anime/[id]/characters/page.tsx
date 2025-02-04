@@ -1,22 +1,26 @@
-import { fetchAnimeCharacters } from "@/app/lib/data";
+"use client";
+import { useAnimeContext } from "@/app/context/useAnimeContext";
+// import { fetchAnimeCharacters } from "@/app/lib/data";
 import { Character } from "@/app/lib/definitions";
 import Search from "@/app/ui/search";
 import Image from "next/image";
 import Link from "next/link";
+import { use } from "react";
 
-export default async function Characters({
-  params,
+export default function Characters({
   searchParams,
 }: {
-  params: Promise<{ id: number }>;
   searchParams?: Promise<{ query?: string }>;
 }) {
-  const { id } = await params;
-  const searchParamsData = await searchParams;
-  const query = searchParamsData?.query || "";
-  const data = await fetchAnimeCharacters(id);
+  const { characters } = useAnimeContext();
+  const resolvedSearchParams = use(searchParams || Promise.resolve({})) as {
+    query?: string;
+  };
+  const query = resolvedSearchParams.query || "";
 
-  const characters = await data.map((char: Character) => ({
+  if (!characters) return <p>no characters</p>;
+
+  const chars = characters.map((char: Character) => ({
     character: {
       mal_id: char.character.mal_id,
       images: {
@@ -39,7 +43,7 @@ export default async function Characters({
   }));
 
   const filteredCharacters = query
-    ? characters.filter((char: Character) => {
+    ? chars.filter((char: Character) => {
         const characterNameMatch = char.character.name
           .toLowerCase()
           .includes(query.toLowerCase());
@@ -56,6 +60,7 @@ export default async function Characters({
     <>
       <Search placeholder="search for a character or an actor" />
       <div className="flex flex-col h-[85vh] overflow-y-auto scrollbar-hide">
+        <p>Characters maybe</p>
         {filteredCharacters.map((char: Character) => {
           const { character, favorites, role, voice_actors } = char;
           return (

@@ -4,16 +4,16 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function PeopleNav({ id, data }: { id: number; data?: Voices }) {
+export default function PersonNav({ id, data }: { id: number; data?: Voices }) {
   const pathname = usePathname();
   const links = [
     {
       name: "Info",
-      href: `/people/${id}`,
+      href: `/person/${id}`,
     },
     {
       name: "Characters",
-      href: `/people/${id}/characters`,
+      href: `/person/${id}/characters`,
     },
   ];
 

@@ -4,8 +4,9 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navigation({ id }: { id: number }) {
+export default function AnimeNav({ id }: { id: number }) {
   const pathname = usePathname();
+
   const links = [
     {
       name: "Info",
@@ -16,6 +17,7 @@ export default function Navigation({ id }: { id: number }) {
       href: `/anime/${id}/characters`,
     },
   ];
+
   return (
     <div className="flex flex-row gap-4">
       {links.map((link) => (

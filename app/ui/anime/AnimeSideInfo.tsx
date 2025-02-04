@@ -1,10 +1,18 @@
-import { Anime as AnimeType } from "@/app/lib/definitions";
+"use client";
 import Image from "next/image";
 import Information from "@/app/ui/anime/information";
 import Stats from "@/app/ui/anime/stats";
 import Alternative from "@/app/ui/anime/alternative";
+import { useAnimeContext } from "@/app/context/useAnimeContext";
+import { notFound } from "next/navigation";
 
-export default function SideInfo({ anime }: { anime: AnimeType }) {
+export default function AnimeSideInfo() {
+  const { anime } = useAnimeContext();
+
+  if (!anime) {
+    console.log("anime is not found lmao");
+    notFound();
+  }
   return (
     <div className="max-w-60">
       <Image
