@@ -203,16 +203,18 @@ export type People = {
   favorites: number;
   about: string;
   anime: AnimeSmall[];
-  voices: {
-    role: string;
-    anime: AnimeSmall;
-    character: CharacterSmall;
-  };
+  voices: Voices;
 };
 
 export type Search = {
   data: Anime[];
   pagination: Pagination;
+};
+
+export type Voices = {
+  role: string;
+  anime: AnimeSmall;
+  character: CharacterSmall;
 };
 
 export type ActorswithPagination = {

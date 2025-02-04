@@ -50,6 +50,19 @@ export async function fetchPeopleById(id: number) {
   }
 }
 
+export async function fetchPersonVoices(id: number) {
+  try {
+    const { data } = await fetch(
+      `https://api.jikan.moe/v4/people/${id}/voices`
+    ).then((res) => res.json());
+
+    return data;
+  } catch (error) {
+    console.error("Jikan API call Error: ", error);
+    throw new Error("Failed to fetch persons voices ");
+  }
+}
+
 export async function fetchSearchAnime(query: string) {
   try {
     const response = await fetch(`https://api.jikan.moe/v4/anime?q=${query}`);

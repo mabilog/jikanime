@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { fetchPeopleById } from "@/app/lib/data";
 import { People } from "@/app/lib/definitions";
 import SideInfo from "@/app/ui/people/sideInfo";
-import Navigation from "@/app/ui/anime/nav";
+import Navigation from "@/app/ui/anime/animeNav";
+import PeopleNav from "@/app/ui/people/PeopleNav";
 
 type LayoutProps = {
   params: Promise<{ id: number }>;
@@ -25,7 +26,7 @@ export default async function Layout({ params, children }: LayoutProps) {
       <div className="flex flex-row gap-4">
         <SideInfo person={person} />
         <div className="flex flex-col mb-4 w-full gap-2">
-          <Navigation id={person.mal_id} />
+          <PeopleNav id={person.mal_id} data={person.voices} />
           <div>{children}</div>
         </div>
       </div>

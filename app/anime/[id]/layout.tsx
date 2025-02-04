@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { fetchAnimeById } from "@/app/lib/data";
 import { Anime as AnimeType } from "@/app/lib/definitions";
 import SideInfo from "@/app/ui/anime/sideInfo";
-import Navigation from "@/app/ui/anime/nav";
+import Navigation from "@/app/ui/anime/animeNav";
 
 type LayoutProps = {
   params: Promise<{ id: number }>;
