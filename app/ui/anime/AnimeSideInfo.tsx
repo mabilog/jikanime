@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Information from "@/app/ui/anime/information";
 
-import Alternative from "@/app/ui/anime/alternative";
 import { useAnimeContext } from "@/app/context/useAnimeContext";
 import { notFound } from "next/navigation";
 
@@ -23,9 +22,8 @@ export default function AnimeSideInfo() {
         alt={anime.title}
         className="m-auto"
       />
-      <div className="flex overflow-x-auto">
+      <div className="flex m-2 p-1 bg-sky-200 overflow-x-auto">
         <Information />
-        <Alternative anime={anime} />
       </div>
     </div>
   );

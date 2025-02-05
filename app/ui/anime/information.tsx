@@ -2,6 +2,7 @@ import { useAnimeContext } from "@/app/context/useAnimeContext";
 
 const infoStyle = "flex flex-col";
 const textStyle = "text-nowrap";
+const labelStyle = "text-slate-800";
 
 export default function Information() {
   const { anime } = useAnimeContext();
@@ -26,7 +27,7 @@ export default function Information() {
 
   const renderStat = (label: string, value: string | number) => (
     <div className={infoStyle}>
-      <div>{label}:</div>
+      <div className={labelStyle}>{label}:</div>
       <div className={textStyle}>{value}</div>
     </div>
   );
@@ -55,7 +56,7 @@ export default function Information() {
         {renderList("Themes", anime.themes)}
       </div>
       <div>
-        <h3>Statistics</h3>
+        <h3 className="hidden md:block">Statistics</h3>
         <div className="flex gap-3">
           {[
             { label: "Score", value: anime.score },
@@ -64,6 +65,25 @@ export default function Information() {
             { label: "Members", value: anime.members },
             { label: "Favorites", value: anime.favorites },
           ].map(({ label, value }) => renderStat(label, value))}
+        </div>
+      </div>
+      <div className="hidden">
+        <h3 className="hidden md:block">Alternative Title</h3>
+        <div className="flex ">
+          <div className="flex">
+            <div className="hidden md:block">Synonyms: </div>
+            {anime.title_synonyms.map((title, index) => (
+              <div key={index} className="flex">
+                {title}
+                {index < anime.title_synonyms.length - 1 ? ", " : ""}
+              </div>
+            ))}
+            {[
+              { label: "Japanese", value: anime.title_japanese },
+              { label: "English", value: anime.title_english },
+            ].map(({ label, value }) => renderStat(label, value))}
+          </div>
+          <div className="flex gap-3"></div>
         </div>
       </div>
     </div>

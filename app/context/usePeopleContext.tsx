@@ -8,11 +8,13 @@ import {
   useState,
 } from "react";
 
-import { People } from "../lib/definitions";
+import { People, Voices } from "../lib/definitions";
 
 type PersonContextType = {
   person: People | null;
+  voices: Voices[] | null;
   setPerson: Dispatch<SetStateAction<People | null>>;
+  setVoices: Dispatch<SetStateAction<Voices[] | null>>;
 };
 
 export const PersonContext = createContext<PersonContextType | null>(null);
@@ -20,14 +22,17 @@ export const PersonContext = createContext<PersonContextType | null>(null);
 export function PersonProvider({
   children,
   initialPerson = null,
+  initialVoices = [],
 }: {
   children: ReactNode;
   initialPerson?: People | null;
+  initialVoices?: Voices[] | null;
 }) {
   const [person, setPerson] = useState<People | null>(initialPerson);
+  const [voices, setVoices] = useState<Voices[] | null>(initialVoices);
 
   return (
-    <PersonContext.Provider value={{ person, setPerson }}>
+    <PersonContext.Provider value={{ person, voices, setPerson, setVoices }}>
       {children}
     </PersonContext.Provider>
   );

@@ -136,7 +136,7 @@ export default function Characters({
                 <div className="flex gap-2 h-full justify-end" key={index}>
                   <div className="flex flex-col gap-2 items-end">
                     <Link
-                      href={`/people/${voice_actor.person.mal_id}`}
+                      href={`/person/${voice_actor.person.mal_id}`}
                       className="transistion-colors duration-300 ease-in-out hover:text-blue-600 text-end"
                     >
                       {voice_actor.person.name}
@@ -144,7 +144,7 @@ export default function Characters({
                     <span>{voice_actor.language}</span>
                   </div>
                   <Link
-                    href={`/people/${voice_actor.person.mal_id}`}
+                    href={`/person/${voice_actor.person.mal_id}`}
                     className="h-auto "
                   >
                     <Image
