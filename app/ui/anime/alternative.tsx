@@ -1,22 +1,33 @@
-import { Anime as AnimeType } from "@/app/lib/definitions";
+import { useAnimeContext } from "@/app/context/useAnimeContext";
 
-export default function Alternative({ anime }: { anime: AnimeType }) {
+export default function Alternative() {
+  const { anime } = useAnimeContext();
   return (
-    <div>
-      <h3>Alternative Title</h3>
-      <div>
-        <p>
-          Synonyms:{" "}
-          {anime.title_synonyms.map((title, index) => (
-            <span key={index}>
-              {title}
-              {index < anime.title_synonyms.length - 1 ? ", " : ""}
-            </span>
-          ))}
-        </p>
-        <p>Japanese: {anime.title_japanese}</p>
-        <p>English: {anime.title_english}</p>
-      </div>
+    <div className="flex flex-col">
+      <h3 className="hidden md:block">Alternative Title</h3>
+      {anime ? (
+        <div className="flex flex-col">
+          <div className="flex flex-col">
+            <div>Synonyms: </div>
+            {anime.title_synonyms.map((title, index) => (
+              <div key={index}>
+                {title}
+                {index < anime.title_synonyms.length - 1 ? ", " : ""}
+              </div>
+            ))}
+          </div>
+          <div>
+            <div>Japanese:</div>
+            <div>{anime.title_japanese}</div>
+          </div>
+          <div>
+            <div>English:</div>
+            <div>{anime.title_english}</div>
+          </div>
+        </div>
+      ) : (
+        <div>No anime data available.</div>
+      )}
     </div>
   );
 }

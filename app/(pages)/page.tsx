@@ -1,5 +1,10 @@
-import { ReactNode } from "react";
+import SearchSmall from "../components/SearchSmall";
 
-export default function Home({ children }: { children: ReactNode }) {
-  return <main className="">{children}</main>;
+export default function Home() {
+  return (
+    <main className="min-h-screen pb-20">
+      <h1>Jikanime</h1>
+      <SearchSmall />
+    </main>
+  );
 }

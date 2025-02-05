@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { geistMono, geistSans } from "../fonts";
-import Navbar from "../components/navbar";
-import Footer from "../components/Footer";
+import { SearchProvider } from "../context/useSearchContext";
+import NavbarWrapper from "../components/NavbarWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,9 +19,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <SearchProvider>
+          <NavbarWrapper />
+          {children}
+        </SearchProvider>
       </body>
     </html>
   );

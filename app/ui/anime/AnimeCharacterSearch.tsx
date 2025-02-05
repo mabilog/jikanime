@@ -38,7 +38,7 @@ export default function AnimeCharacterSearch({
   };
 
   return (
-    <>
+    <div className="flex gap-2 mb-2">
       <div className="relative flex flex-1 flex-shrink-0">
         <label htmlFor="search" className="sr-only">
           Search
@@ -65,6 +65,6 @@ export default function AnimeCharacterSearch({
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 }

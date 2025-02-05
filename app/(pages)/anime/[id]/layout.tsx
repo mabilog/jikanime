@@ -27,7 +27,7 @@ export default async function Layout({ params, children }: LayoutProps) {
     <AnimeProvider initialAnime={anime} initialCharacters={characters}>
       <div className="flex h-screen flex-col max-w-screen-xl mx-auto">
         <AnimeTitle />
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <AnimeSideInfo />
           <div className="flex flex-col mb-4 w-full gap-2">
             <AnimeNav id={id} />

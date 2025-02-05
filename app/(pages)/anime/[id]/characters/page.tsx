@@ -48,9 +48,12 @@ export default function Characters({
     voice_actors:
       language === "All"
         ? char.voice_actors
-        : char.voice_actors.filter((va) => va.language === language),
+        : char.voice_actors
+            .filter((va) => va.language === language)
+            .slice(0, 1),
   }));
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredCharacters = query
     ? chars.filter((char: Character) => {
         const characterNameMatch = char.character.name
@@ -65,24 +68,60 @@ export default function Characters({
       })
     : chars;
 
+  const charsFlatMap = characters.flatMap((char: Character) =>
+    char.voice_actors
+      .filter((va) => language === "all" || va.language === language)
+      .map((va) => ({
+        character: {
+          mal_id: char.character.mal_id,
+          images: {
+            jpg: { image_url: char.character.images.jpg.image_url },
+            webp: {
+              image_url: char.character.images.webp.image_url,
+              small_image_url: char.character.images.webp.small_image_url,
+            },
+          },
+          name: char.character.name,
+          url: char.character.url,
+        },
+        role: char.role,
+        favorites: char.favorites,
+        voice_actor: va, // Single voice actor per entry
+      }))
+  );
+
+  const filteredCharsFlatMap = query
+    ? charsFlatMap.filter(({ character, voice_actor }) => {
+        const characterNameMatch = character.name
+          .toLowerCase()
+          .includes(query.toLowerCase());
+
+        const voiceActorMatch = voice_actor.person.name
+          .toLowerCase()
+          .includes(query.toLowerCase());
+
+        return characterNameMatch || voiceActorMatch;
+      })
+    : charsFlatMap;
+
   return (
-    <>
+    <div className="px-2">
       <AnimeCharacterSearch
         placeholder="search for a character or an actor"
         languages={languages}
       />
-      <div className="flex flex-col h-full overflow-y-auto scrollbar-hide">
-        {filteredCharacters.map((char: Character, index) => {
-          const { character, favorites, role, voice_actors } = char;
+      <div className="flex flex-col md:grid md:grid-cols-2 h-full overflow-y-auto scrollbar-hide gap-2">
+        {filteredCharsFlatMap.map((char, index) => {
+          const { character, favorites, role, voice_actor } = char;
           return (
             <div
-              className="flex flex-row justify-between border-b py-2"
+              className="flex flex-row border-b py-2 px-2 rounded-md bg-blue-100 "
               key={index}
             >
-              <div className="flex flex-row justify-start gap-2">
+              <div className="flex flex-row w-1/2 justify-start gap-2">
                 <Image
-                  width={100}
-                  height={200}
+                  width={50}
+                  height={100}
                   alt={character.name}
                   src={character.images.webp.image_url}
                   className="object-contain h-fit w-auto"
@@ -93,34 +132,35 @@ export default function Characters({
                   <p>{favorites} favorites</p>
                 </div>
               </div>
-              <div className="flex flex-col items-end gap-2">
-                {voice_actors.map((va, index) => (
-                  <div className="flex gap-2" key={index}>
-                    <div className="flex flex-col gap-2 items-end">
-                      <Link
-                        href={`/people/${va.person.mal_id}`}
-                        className="transistion-colors duration-300 ease-in-out hover:text-blue-600"
-                      >
-                        {va.person.name}
-                      </Link>
-                      <span>{va.language}</span>
-                    </div>
-                    <Link href={`/people/${va.person.mal_id}`}>
-                      <Image
-                        width={75}
-                        height={150}
-                        alt={va.person.name}
-                        src={va.person.images.jpg.image_url}
-                        className="object-contain w-auto"
-                      />
+              <div className="flex flex-col w-1/2 items-end gap-2">
+                <div className="flex gap-2 h-full justify-end" key={index}>
+                  <div className="flex flex-col gap-2 items-end">
+                    <Link
+                      href={`/people/${voice_actor.person.mal_id}`}
+                      className="transistion-colors duration-300 ease-in-out hover:text-blue-600 text-end"
+                    >
+                      {voice_actor.person.name}
                     </Link>
+                    <span>{voice_actor.language}</span>
                   </div>
-                ))}
+                  <Link
+                    href={`/people/${voice_actor.person.mal_id}`}
+                    className="h-auto "
+                  >
+                    <Image
+                      width={50}
+                      height={100}
+                      alt={voice_actor.person.name}
+                      src={voice_actor.person.images.jpg.image_url}
+                      className="object-contain w-auto"
+                    />
+                  </Link>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
