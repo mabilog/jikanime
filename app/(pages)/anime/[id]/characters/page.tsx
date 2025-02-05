@@ -1,8 +1,7 @@
 "use client";
 import { useAnimeContext } from "@/app/context/useAnimeContext";
-// import { fetchAnimeCharacters } from "@/app/lib/data";
 import { Character } from "@/app/lib/definitions";
-import Search from "@/app/ui/search";
+import AnimeCharacterSearch from "@/app/ui/anime/AnimeCharacterSearch";
 import Image from "next/image";
 import Link from "next/link";
 import { use } from "react";
@@ -10,15 +9,24 @@ import { use } from "react";
 export default function Characters({
   searchParams,
 }: {
-  searchParams?: Promise<{ query?: string }>;
+  searchParams?: Promise<{ query?: string; language?: string }>;
 }) {
   const { characters } = useAnimeContext();
   const resolvedSearchParams = use(searchParams || Promise.resolve({})) as {
     query?: string;
+    language?: string;
   };
   const query = resolvedSearchParams.query || "";
+  const language = resolvedSearchParams.language || "Japanese";
 
   if (!characters) return <p>no characters</p>;
+
+  const languages = [
+    "All",
+    ...new Set(
+      characters.flatMap((char) => char.voice_actors.map((va) => va.language))
+    ),
+  ];
 
   const chars = characters.map((char: Character) => ({
     character: {
@@ -37,9 +45,10 @@ export default function Characters({
     },
     role: char.role,
     favorites: char.favorites,
-    voice_actors: char.voice_actors.filter(
-      (va) => va.language === "Japanese" || va.language === "English"
-    ),
+    voice_actors:
+      language === "All"
+        ? char.voice_actors
+        : char.voice_actors.filter((va) => va.language === language),
   }));
 
   const filteredCharacters = query
@@ -54,19 +63,21 @@ export default function Characters({
 
         return characterNameMatch || voiceActorMatch;
       })
-    : characters;
+    : chars;
 
   return (
     <>
-      <Search placeholder="search for a character or an actor" />
-      <div className="flex flex-col h-[85vh] overflow-y-auto scrollbar-hide">
-        <p>Characters maybe</p>
-        {filteredCharacters.map((char: Character) => {
+      <AnimeCharacterSearch
+        placeholder="search for a character or an actor"
+        languages={languages}
+      />
+      <div className="flex flex-col h-full overflow-y-auto scrollbar-hide">
+        {filteredCharacters.map((char: Character, index) => {
           const { character, favorites, role, voice_actors } = char;
           return (
             <div
               className="flex flex-row justify-between border-b py-2"
-              key={character.mal_id}
+              key={index}
             >
               <div className="flex flex-row justify-start gap-2">
                 <Image
@@ -74,7 +85,7 @@ export default function Characters({
                   height={200}
                   alt={character.name}
                   src={character.images.webp.image_url}
-                  className="object-contain h-fit"
+                  className="object-contain h-fit w-auto"
                 />
                 <div>
                   <p>{character.name}</p>
@@ -83,8 +94,8 @@ export default function Characters({
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
-                {voice_actors.map((va) => (
-                  <div className="flex gap-2" key={va.person.mal_id}>
+                {voice_actors.map((va, index) => (
+                  <div className="flex gap-2" key={index}>
                     <div className="flex flex-col gap-2 items-end">
                       <Link
                         href={`/people/${va.person.mal_id}`}
@@ -100,7 +111,7 @@ export default function Characters({
                         height={150}
                         alt={va.person.name}
                         src={va.person.images.jpg.image_url}
-                        className="object-contain"
+                        className="object-contain w-auto"
                       />
                     </Link>
                   </div>

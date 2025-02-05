@@ -12,10 +12,10 @@ export default function SearchResults(props: {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
       {results &&
-        results.data.map((anime) => (
+        results.data.map((anime, index) => (
           <Link
             href={`/anime/${anime.mal_id}`}
-            key={anime.mal_id}
+            key={index}
             className="flex flex-col max-w-[200px]"
           >
             <Image

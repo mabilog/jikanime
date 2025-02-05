@@ -11,14 +11,11 @@ export async function Cards({ animes }: { animes: AnimeType[] }) {
   }
   return (
     <div className="flex flex-wrap justify-center gap-2">
-      {animes.map((anime: AnimeType) => (
-        <Card anime={anime} key={anime.mal_id} />
+      {animes.map((anime: AnimeType, index) => (
+        <Card anime={anime} key={index} />
       ))}
     </div>
   );
-
-  // console.log("anime: ", animes);
-  // return <p>Cards!</p>;
 }
 
 export function Card({ anime }: { anime: AnimeType }) {

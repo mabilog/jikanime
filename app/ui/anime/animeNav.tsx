@@ -20,13 +20,13 @@ export default function AnimeNav({ id }: { id: number }) {
 
   return (
     <div className="flex flex-row gap-4">
-      {links.map((link) => (
+      {links.map((link, index) => (
         <Link
           href={link.href}
           className={clsx("py-1 px-2 border", {
             "bg-sky-100 text-vlue-600": pathname === link.href,
           })}
-          key={link.name}
+          key={index}
         >
           {link.name}
         </Link>

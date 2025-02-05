@@ -3,8 +3,8 @@ import { fetchAnimeById, fetchAnimeCharacters } from "@/app/lib/data";
 import { ReactNode } from "react";
 import { AnimeProvider } from "@/app/context/useAnimeContext";
 import AnimeTitle from "@/app/ui/anime/AnimeTitle";
-import AnimeNav from "@/app/ui/anime/animeNav";
 import AnimeSideInfo from "@/app/ui/anime/AnimeSideInfo";
+import AnimeNav from "@/app/ui/anime/AnimeNav";
 
 type LayoutProps = {
   params: Promise<{ id: number }>;

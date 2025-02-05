@@ -8,7 +8,7 @@ export default function Alternative({ anime }: { anime: AnimeType }) {
         <p>
           Synonyms:{" "}
           {anime.title_synonyms.map((title, index) => (
-            <span key={title}>
+            <span key={index}>
               {title}
               {index < anime.title_synonyms.length - 1 ? ", " : ""}
             </span>

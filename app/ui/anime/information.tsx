@@ -26,7 +26,7 @@ export default function Information({ anime }: { anime: AnimeType }) {
         <p>
           Producers:{" "}
           {anime.producers.map((producer, index) => (
-            <span key={producer.name}>
+            <span key={index}>
               {producer.name}
               {index < anime.producers.length - 1 ? ", " : ""}
             </span>
@@ -35,7 +35,7 @@ export default function Information({ anime }: { anime: AnimeType }) {
         <p>
           Licensors:{" "}
           {anime.licensors.map((licensor, index) => (
-            <span key={licensor.name}>
+            <span key={index}>
               {licensor.name}
               {index < anime.licensors.length - 1 ? ", " : ""}
             </span>
@@ -44,7 +44,7 @@ export default function Information({ anime }: { anime: AnimeType }) {
         <p>
           Studios:{" "}
           {anime.studios.map((studio, index) => (
-            <span key={studio.name}>
+            <span key={index}>
               {studio.name}
               {index < anime.studios.length - 1 ? ", " : ""}
             </span>
@@ -56,7 +56,7 @@ export default function Information({ anime }: { anime: AnimeType }) {
         <p>
           Genre:{" "}
           {anime.genres.map((genre, index) => (
-            <span key={genre.name}>
+            <span key={index}>
               {genre.name}
               {index < anime.genres.length - 1 ? ", " : ""}
             </span>
@@ -65,7 +65,7 @@ export default function Information({ anime }: { anime: AnimeType }) {
         <p>
           Themes:{" "}
           {anime.themes.map((theme, index) => (
-            <span key={theme.name}>
+            <span key={index}>
               {theme.name}
               {index < anime.themes.length - 1 ? ", " : ""}
             </span>
