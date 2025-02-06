@@ -144,13 +144,10 @@ export type Anime = {
 };
 
 export type AnimeSmall = {
-  position: string;
-  anime: {
-    mal_id: string;
-    url: string;
-    images: Images;
-    title: string;
-  };
+  mal_id: string;
+  url: string;
+  images: Images;
+  title: string;
 };
 
 export type Character = {
